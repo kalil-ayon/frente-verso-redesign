@@ -43,16 +43,26 @@ a{text-decoration:none;color:inherit}
 ul{list-style:none}
 button{cursor:pointer;background:none;border:none;font-family:inherit}
 
+/* ====== SKIP TO CONTENT ====== */
+.skip-link{position:absolute;top:-60px;left:24px;background:var(--blue);color:var(--white);padding:12px 20px;border-radius:var(--r);font-size:.875rem;font-weight:600;z-index:9999;transition:top .2s ease}
+.skip-link:focus{top:12px}
+
+/* ====== SCROLL PROGRESS ====== */
+#scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue-mid));z-index:999;width:0%;transition:width .08s linear;transform-origin:left}
+
 /* ====== UTILS ====== */
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 .label{font-family:var(--font-b);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:16px}
-.title{font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.12;color:var(--navy)}
+.title{font-family:var(--font-d);font-size:clamp(2rem,4vw,3rem);font-weight:600;line-height:1.12;color:var(--navy);text-wrap:balance}
 .title em{font-style:italic;color:var(--blue)}
 .sub{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:560px;margin-top:16px}
-.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
 .fade-up.visible{opacity:1;transform:translateY(0)}
-.fade-in{opacity:0;transition:opacity .7s ease}
+.fade-in{opacity:0;transition:opacity .65s ease}
 .fade-in.visible{opacity:1}
+
+/* Global focus-visible */
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
 
 /* ====== BUTTONS ====== */
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--blue);color:var(--white);font-size:.875rem;font-weight:600;letter-spacing:.03em;border-radius:var(--r);transition:background var(--t),transform var(--t),box-shadow var(--t)}
@@ -79,11 +89,17 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .nav-links a:hover{color:var(--white)}
 .nav.scrolled .nav-links a{color:var(--text-muted)}
 .nav.scrolled .nav-links a:hover{color:var(--navy)}
-.nav-cta-btn{font-size:.82rem!important;font-weight:600!important;letter-spacing:.04em!important;padding:10px 22px!important;background:var(--blue)!important;color:var(--white)!important;border-radius:var(--r);transition:background var(--t),transform var(--t)!important}
-.nav-cta-btn:hover{background:var(--blue-mid)!important;transform:translateY(-1px)!important;color:var(--white)!important}
-.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
-.nav-burger span{width:22px;height:2px;background:var(--white);transition:var(--t);border-radius:2px}
+.nav-links a.nav-active{color:var(--white)}
+.nav.scrolled .nav-links a.nav-active{color:var(--blue);font-weight:600}
+.nav-cta-btn{font-size:.82rem;font-weight:600;letter-spacing:.04em;padding:10px 22px;background:var(--blue);color:var(--white);border-radius:var(--r);transition:background var(--t),transform var(--t)}
+.nav-cta-btn:hover,.nav-cta-btn:focus-visible{background:var(--blue-mid);transform:translateY(-1px);color:var(--white);outline-color:var(--white)}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border-radius:var(--r)}
+.nav-burger span{width:22px;height:2px;background:var(--white);transition:var(--t);border-radius:2px;display:block}
+.nav-burger span:nth-child(2){width:16px}
 .nav.scrolled .nav-burger span{background:var(--navy)}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* ====== HERO ====== */
 .hero{min-height:100vh;background:var(--navy);position:relative;display:grid;grid-template-rows:1fr auto;overflow:hidden}
@@ -93,7 +109,7 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .hero-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-mid);margin-bottom:28px}
 .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--blue-mid)}
-.hero-h1{font-family:var(--font-d);font-size:clamp(2.6rem,5vw,4rem);font-weight:600;line-height:1.08;color:var(--white);margin-bottom:24px}
+.hero-h1{font-family:var(--font-d);font-size:clamp(2.6rem,5vw,4rem);font-weight:600;line-height:1.08;color:var(--white);margin-bottom:24px;text-wrap:balance}
 .hero-h1 em{font-style:italic;color:var(--blue-mid)}
 .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.65);line-height:1.78;margin-bottom:40px;max-width:480px}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
@@ -119,7 +135,7 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .hero-stat:last-child{border-right:none}
 .hstat-num{font-family:var(--font-d);font-size:2rem;font-weight:700;color:var(--white);line-height:1;margin-bottom:4px}
 .hstat-num .acc{color:var(--blue-mid)}
-.hstat-lbl{font-size:.78rem;color:rgba(255,255,255,.48);letter-spacing:.03em}
+.hstat-lbl{font-size:.78rem;color:rgba(255,255,255,.62);letter-spacing:.03em}
 
 /* ====== TRUST ====== */
 .trust{padding:52px 0;background:var(--gray-50);border-bottom:1px solid var(--gray-200)}
@@ -139,7 +155,7 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .num-val{font-family:var(--font-d);font-size:clamp(3rem,6vw,5rem);font-weight:700;color:var(--white);line-height:1;margin-bottom:8px}
 .num-val .acc{color:var(--blue-mid)}
 .num-name{font-size:1rem;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:4px}
-.num-desc{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.5}
+.num-desc{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.5}
 
 /* ====== SERVICES ====== */
 .services{padding:100px 0;background:var(--white)}
@@ -189,6 +205,8 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .port-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;gap:40px}
 .port-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(160px,auto);gap:16px}
 .port-item{border-radius:var(--r-lg);overflow:hidden;position:relative;cursor:pointer}
+.port-item:focus-visible{outline:3px solid var(--blue-mid);outline-offset:2px}
+.port-item:focus-visible .port-overlay,.port-item:focus .port-overlay{opacity:1}
 .port-item:nth-child(1){grid-column:span 7;grid-row:span 2}
 .port-item:nth-child(2){grid-column:span 5}
 .port-item:nth-child(3){grid-column:span 5}
@@ -303,7 +321,7 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .cta-final::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px}
 .cta-final-inner{position:relative;z-index:1;max-width:640px;margin:0 auto}
 .cta-label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);display:block;margin-bottom:20px}
-.cta-title{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;color:var(--white);line-height:1.12;margin-bottom:20px}
+.cta-title{font-family:var(--font-d);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;color:var(--white);line-height:1.12;margin-bottom:20px;text-wrap:balance}
 .cta-sub{font-size:1rem;color:rgba(255,255,255,.72);line-height:1.72;margin-bottom:40px}
 .cta-acts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 
@@ -312,20 +330,20 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .footer-main{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
 .footer-name{font-family:var(--font-d);font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:16px}
 .footer-name span{color:var(--blue-mid)}
-.footer-desc{font-size:.85rem;color:rgba(255,255,255,.38);line-height:1.72;margin-bottom:24px}
+.footer-desc{font-size:.85rem;color:rgba(255,255,255,.56);line-height:1.72;margin-bottom:24px}
 .footer-social{display:flex;gap:12px}
 .footer-social a{width:36px;height:36px;border:1px solid rgba(255,255,255,.11);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:all var(--t)}
 .footer-social a:hover{border-color:var(--blue);color:var(--blue-mid)}
-.footer-col-title{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:20px}
+.footer-col-title{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:20px}
 .footer-links{display:flex;flex-direction:column;gap:12px}
-.footer-links a{font-size:.875rem;color:rgba(255,255,255,.52);transition:color var(--t)}
+.footer-links a{font-size:.875rem;color:rgba(255,255,255,.65);transition:color var(--t)}
 .footer-links a:hover{color:var(--white)}
 .footer-ci{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
 .footer-ci svg{color:var(--blue-mid);flex-shrink:0;margin-top:2px}
-.footer-ci span{font-size:.84rem;color:rgba(255,255,255,.52);line-height:1.5}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.footer-copy{font-size:.78rem;color:rgba(255,255,255,.28)}
-.footer-cnpj{font-size:.75rem;color:rgba(255,255,255,.18)}
+.footer-ci span{font-size:.84rem;color:rgba(255,255,255,.65);line-height:1.5}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.5)}
+.footer-cnpj{font-size:.75rem;color:rgba(255,255,255,.35)}
 
 /* ====== WA FIXED ====== */
 .wa-fixed{position:fixed;bottom:28px;right:28px;z-index:200;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);transition:transform var(--t),box-shadow var(--t);animation:pulse-g 3s infinite}
@@ -382,6 +400,9 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 </head>
 <body>
 
+<a href="#main-content" class="skip-link">Ir para o conteúdo</a>
+<div id="scroll-progress" role="progressbar" aria-label="Progresso de leitura" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
 <!-- WhatsApp fixo -->
 <a href="https://wa.me/5561986250319" target="_blank" rel="noopener" class="wa-fixed" aria-label="Fale pelo WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -395,23 +416,23 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
         <img src="https://frenteeversoconstrutora.com/wp-content/uploads/2025/03/IMG_8911.png" class="nav-logo-img" alt="Frente&Verso logo">
         <div class="nav-logo-text">Frente<span>&amp;</span>Verso</div>
       </a>
-      <ul class="nav-links" id="navLinks" role="menubar">
-        <li role="none"><a href="#servicos" role="menuitem">Serviços</a></li>
-        <li role="none"><a href="#portfolio" role="menuitem">Portfólio</a></li>
-        <li role="none"><a href="#diferenciais" role="menuitem">Diferenciais</a></li>
-        <li role="none"><a href="#historia" role="menuitem">Nossa História</a></li>
-        <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
-        <li role="none"><a href="https://wa.me/5561986250319" target="_blank" rel="noopener" class="nav-cta-btn" role="menuitem">Agendar Visita Grátis</a></li>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicos" data-nav>Serviços</a></li>
+        <li><a href="#portfolio" data-nav>Portfólio</a></li>
+        <li><a href="#diferenciais" data-nav>Diferenciais</a></li>
+        <li><a href="#historia" data-nav>Nossa História</a></li>
+        <li><a href="#faq" data-nav>FAQ</a></li>
+        <li><a href="https://wa.me/5561986250319" target="_blank" rel="noopener" class="nav-cta-btn">Agendar Visita Grátis</a></li>
       </ul>
-      <div class="nav-burger" id="burger" aria-label="Abrir menu" role="button" tabindex="0" aria-expanded="false">
+      <button class="nav-burger" id="burger" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
-      </div>
+      </button>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" aria-label="Apresentação da empresa">
+<section class="hero" id="main-content" aria-label="Apresentação da empresa">
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-amp" aria-hidden="true">&amp;</div>
 
@@ -726,33 +747,33 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
       </a>
     </div>
     <div class="port-grid" role="list" aria-label="Portfólio de obras">
-      <div class="port-item fade-in" role="listitem">
+      <div class="port-item fade-in" role="listitem" tabindex="0" aria-label="Residência Lago Sul — Construção completa 2024">
         <div class="port-bg pi1" style="min-height:320px;position:relative">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.15"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width=".8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
         </div>
-        <div class="port-overlay">
+        <div class="port-overlay" aria-hidden="true">
           <div class="port-info"><strong>Residência Lago Sul</strong><span>Construção completa &bull; 2024</span></div>
         </div>
       </div>
-      <div class="port-item fade-in" style="transition-delay:.08s" role="listitem">
+      <div class="port-item fade-in" style="transition-delay:.08s" role="listitem" tabindex="0" aria-label="Reforma Comercial Asa Norte — Reforma completa 2024">
         <div class="port-bg pi2" style="min-height:155px"></div>
-        <div class="port-overlay"><div class="port-info"><strong>Reforma Comercial Asa Norte</strong><span>Reforma completa &bull; 2024</span></div></div>
+        <div class="port-overlay" aria-hidden="true"><div class="port-info"><strong>Reforma Comercial Asa Norte</strong><span>Reforma completa &bull; 2024</span></div></div>
       </div>
-      <div class="port-item fade-in" style="transition-delay:.14s" role="listitem">
+      <div class="port-item fade-in" style="transition-delay:.14s" role="listitem" tabindex="0" aria-label="Apartamento Sudoeste — Reforma 2024">
         <div class="port-bg pi3" style="min-height:155px"></div>
-        <div class="port-overlay"><div class="port-info"><strong>Apartamento Sudoeste</strong><span>Reforma &bull; 2024</span></div></div>
+        <div class="port-overlay" aria-hidden="true"><div class="port-info"><strong>Apartamento Sudoeste</strong><span>Reforma &bull; 2024</span></div></div>
       </div>
-      <div class="port-item fade-in" style="transition-delay:.2s" role="listitem">
+      <div class="port-item fade-in" style="transition-delay:.2s" role="listitem" tabindex="0" aria-label="Escritório Park Way — Construção 2023">
         <div class="port-bg pi4" style="min-height:160px"></div>
-        <div class="port-overlay"><div class="port-info"><strong>Escritório Park Way</strong><span>Construção &bull; 2023</span></div></div>
+        <div class="port-overlay" aria-hidden="true"><div class="port-info"><strong>Escritório Park Way</strong><span>Construção &bull; 2023</span></div></div>
       </div>
-      <div class="port-item fade-in" style="transition-delay:.25s" role="listitem">
+      <div class="port-item fade-in" style="transition-delay:.25s" role="listitem" tabindex="0" aria-label="Casa Jardim Botânico — Construção 2023">
         <div class="port-bg pi5" style="min-height:160px"></div>
-        <div class="port-overlay"><div class="port-info"><strong>Casa Jardim Botânico</strong><span>Construção &bull; 2023</span></div></div>
+        <div class="port-overlay" aria-hidden="true"><div class="port-info"><strong>Casa Jardim Botânico</strong><span>Construção &bull; 2023</span></div></div>
       </div>
-      <div class="port-item fade-in" style="transition-delay:.3s" role="listitem">
+      <div class="port-item fade-in" style="transition-delay:.3s" role="listitem" tabindex="0" aria-label="Clínica Asa Sul — Reforma e adequação 2022">
         <div class="port-bg pi6" style="min-height:160px"></div>
-        <div class="port-overlay"><div class="port-info"><strong>Clínica Asa Sul</strong><span>Reforma e adequação &bull; 2022</span></div></div>
+        <div class="port-overlay" aria-hidden="true"><div class="port-info"><strong>Clínica Asa Sul</strong><span>Reforma e adequação &bull; 2022</span></div></div>
       </div>
     </div>
   </div>
@@ -1133,16 +1154,17 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
     },{threshold:.12});
     document.querySelectorAll('.fade-up,.fade-in').forEach(function(el){obs.observe(el)});
 
-    /* Counter animation */
+    /* Counter animation — easeOutQuart */
     function animCount(el){
       var target=parseInt(el.dataset.target,10);
-      var dur=1800;
+      var dur=1600;
       var start=performance.now();
       (function tick(now){
         var p=Math.min((now-start)/dur,1);
-        var ease=1-Math.pow(1-p,3);
+        var ease=1-Math.pow(1-p,4);
         el.textContent=Math.round(ease*target);
         if(p<1)requestAnimationFrame(tick);
+        else el.textContent=target;
       })(start);
     }
     var cObs=new IntersectionObserver(function(entries){
@@ -1152,7 +1174,7 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
           cObs.unobserve(e.target);
         }
       });
-    },{threshold:.3});
+    },{threshold:.4});
     document.querySelectorAll('.hero-stats,.numbers').forEach(function(el){cObs.observe(el)});
   } else {
     document.querySelectorAll('.fade-up,.fade-in').forEach(function(el){el.classList.add('visible')});
@@ -1166,6 +1188,74 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
       document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
       document.querySelectorAll('.faq-q').forEach(function(b){b.setAttribute('aria-expanded','false')});
       if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true')}
+    });
+  });
+
+  /* Scroll progress bar */
+  var progressBar=document.getElementById('scroll-progress');
+  function updateProgress(){
+    var scrollTop=window.scrollY;
+    var docH=document.documentElement.scrollHeight-window.innerHeight;
+    var pct=docH>0?(scrollTop/docH*100):0;
+    if(progressBar){progressBar.style.width=pct+'%';progressBar.setAttribute('aria-valuenow',Math.round(pct))}
+  }
+  window.addEventListener('scroll',updateProgress,{passive:true});
+
+  /* Scroll-spy: highlight active nav link */
+  var navSections=document.querySelectorAll('section[id]');
+  var navLinks=document.querySelectorAll('[data-nav]');
+  var spyObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        navLinks.forEach(function(a){
+          a.classList.toggle('nav-active',a.getAttribute('href')==='#'+e.target.id);
+        });
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  navSections.forEach(function(s){spyObs.observe(s)});
+
+  /* Burger: aria-expanded + focus trap */
+  var burger=document.getElementById('burger');
+  var navList=document.getElementById('navLinks');
+  if(burger&&navList){
+    burger.addEventListener('click',function(){
+      var open=burger.getAttribute('aria-expanded')==='true';
+      burger.setAttribute('aria-expanded',String(!open));
+      burger.setAttribute('aria-label',open?'Abrir menu de navegação':'Fechar menu de navegação');
+      navList.classList.toggle('mob',!open);
+      document.body.style.overflow=open?'':'hidden';
+    });
+    navList.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        burger.setAttribute('aria-expanded','false');
+        burger.setAttribute('aria-label','Abrir menu de navegação');
+        navList.classList.remove('mob');
+        document.body.style.overflow='';
+      });
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&burger.getAttribute('aria-expanded')==='true'){
+        burger.setAttribute('aria-expanded','false');
+        burger.setAttribute('aria-label','Abrir menu de navegação');
+        navList.classList.remove('mob');
+        document.body.style.overflow='';
+        burger.focus();
+      }
+    });
+  }
+
+  /* aria-pressed on qf-pills */
+  document.querySelectorAll('.qf-pill').forEach(function(p){
+    p.setAttribute('aria-pressed','false');
+  });
+  document.querySelectorAll('.qf-pill').forEach(function(pill){
+    pill.addEventListener('click',function(){
+      var grp=pill.dataset.group;
+      document.querySelectorAll('.qf-pill[data-group="'+grp+'"]').forEach(function(p){
+        p.setAttribute('aria-pressed','false');
+      });
+      pill.setAttribute('aria-pressed','true');
     });
   });
 
