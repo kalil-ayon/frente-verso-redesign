@@ -253,6 +253,51 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
 .faq-item.open .faq-ans{max-height:300px}
 .faq-ans p{font-size:.9rem;color:var(--text-muted);line-height:1.78;padding-bottom:24px}
 
+/* ====== ORÇAMENTO / QUALIFICAÇÃO ====== */
+.quote{padding:120px 0;background:var(--navy);position:relative;overflow:hidden}
+.quote::before{content:'';position:absolute;top:-20%;right:-10%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,117,196,.18) 0%,transparent 70%);pointer-events:none}
+.quote-grid{position:relative;z-index:1;display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:start}
+.quote .label{color:var(--blue-mid)}
+.quote-title{font-family:var(--font-d);font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:600;color:var(--white);line-height:1.2;margin:18px 0 20px}
+.quote-sub{font-size:1rem;color:rgba(255,255,255,.66);line-height:1.78;max-width:42ch}
+.quote-steps{margin-top:44px;display:flex;flex-direction:column;gap:24px}
+.quote-steps li{display:flex;gap:18px;align-items:flex-start}
+.quote-step-n{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:.9rem;font-weight:700;color:var(--blue-mid)}
+.quote-steps strong{display:block;color:var(--white);font-size:.95rem;font-weight:600;margin-bottom:4px}
+.quote-steps p{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.6}
+.quote-direct{margin-top:48px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9rem;color:rgba(255,255,255,.55)}
+.quote-direct a{color:var(--blue-mid);font-weight:600;transition:color var(--t)}
+.quote-direct a:hover{color:var(--white)}
+
+.quote-form{background:var(--white);border-radius:var(--r-lg);padding:44px;box-shadow:0 24px 64px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:20px}
+.qf-row-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.qf-field{display:flex;flex-direction:column;gap:8px}
+.qf-field label,.qf-legend{font-size:.78rem;font-weight:600;letter-spacing:.02em;color:var(--navy)}
+.qf-field input,.qf-field select,.qf-field textarea{font-family:var(--font-b);font-size:.92rem;color:var(--text);background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--r);padding:13px 14px;transition:border-color var(--t),background var(--t)}
+.qf-field input:focus,.qf-field select:focus,.qf-field textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.qf-field input:focus-visible,.qf-field select:focus-visible,.qf-field textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.qf-field textarea{resize:vertical;min-height:88px;font-family:var(--font-b)}
+.qf-pills{display:flex;flex-wrap:wrap;gap:10px}
+.qf-pill{padding:10px 18px;border-radius:999px;border:1px solid var(--gray-200);background:var(--gray-50);font-size:.82rem;font-weight:600;color:var(--text-muted);transition:all var(--t)}
+.qf-pill:hover{border-color:var(--blue-mid);color:var(--navy)}
+.qf-pill:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.qf-pill.active{background:var(--blue);border-color:var(--blue);color:var(--white)}
+.qf-submit{justify-content:center;width:100%;margin-top:6px;padding:16px 28px;font-size:.9rem}
+.qf-submit:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.qf-note{font-size:.76rem;color:var(--text-muted);text-align:center;margin-top:-8px}
+.qf-field.qf-error input,.qf-field.qf-error select{border-color:#D14343}
+.qf-error-msg{font-size:.76rem;color:#D14343;display:none}
+.qf-field.qf-error .qf-error-msg{display:block}
+
+@media(max-width:1024px){
+  .quote-grid{grid-template-columns:1fr;gap:56px}
+  .quote-form{padding:32px}
+}
+@media(max-width:768px){
+  .quote{padding:80px 0}
+  .qf-row-2{grid-template-columns:1fr}
+}
+
 /* ====== CTA FINAL ====== */
 .cta-final{padding:100px 0;background:linear-gradient(135deg,var(--blue) 0%,#005fa0 100%);position:relative;overflow:hidden;text-align:center}
 .cta-final::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px}
@@ -883,6 +928,107 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
   </div>
 </section>
 
+<!-- FORMULÁRIO DE QUALIFICAÇÃO -->
+<section class="quote" id="orcamento" aria-labelledby="quote-h">
+  <div class="container">
+    <div class="quote-grid">
+      <div class="quote-intro fade-up">
+        <span class="label">Solicite um orçamento</span>
+        <h2 class="quote-title" id="quote-h">Conte sobre a sua obra.<br>A gente cuida do resto.</h2>
+        <p class="quote-sub">Leva dois minutos. Com esses detalhes, nossa equipe já chega na primeira conversa com uma direção clara — sem visita às cegas, sem proposta genérica.</p>
+        <ol class="quote-steps">
+          <li><span class="quote-step-n">1</span><div><strong>Você envia os dados</strong><p>Formulário rápido, sem compromisso.</p></div></li>
+          <li><span class="quote-step-n">2</span><div><strong>Analisamos o escopo</strong><p>Nossa equipe técnica avalia o que você descreveu.</p></div></li>
+          <li><span class="quote-step-n">3</span><div><strong>Agendamos a visita</strong><p>Vistoria gratuita e proposta detalhada em até 48h.</p></div></li>
+        </ol>
+        <div class="quote-direct">
+          <span>Prefere falar direto?</span>
+          <a href="https://wa.me/5561986250319" target="_blank" rel="noopener">Chamar no WhatsApp →</a>
+        </div>
+      </div>
+
+      <form class="quote-form fade-up" id="quoteForm" novalidate>
+        <div class="qf-row">
+          <div class="qf-field">
+            <label for="qf-nome">Nome completo <span aria-hidden="true">*</span></label>
+            <input type="text" id="qf-nome" name="nome" autocomplete="name" required>
+          </div>
+        </div>
+        <div class="qf-row qf-row-2">
+          <div class="qf-field">
+            <label for="qf-whatsapp">WhatsApp <span aria-hidden="true">*</span></label>
+            <input type="tel" id="qf-whatsapp" name="whatsapp" autocomplete="tel" placeholder="(61) 9XXXX-XXXX" required>
+          </div>
+          <div class="qf-field">
+            <label for="qf-email">E-mail</label>
+            <input type="email" id="qf-email" name="email" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="qf-field">
+          <span class="qf-legend">Tipo de projeto <span aria-hidden="true">*</span></span>
+          <div class="qf-pills" role="radiogroup" aria-label="Tipo de projeto">
+            <button type="button" class="qf-pill" data-group="projeto">Reforma</button>
+            <button type="button" class="qf-pill" data-group="projeto">Construção nova</button>
+            <button type="button" class="qf-pill" data-group="projeto">Projeto arquitetônico</button>
+            <button type="button" class="qf-pill" data-group="projeto">Reparo pontual</button>
+          </div>
+          <input type="hidden" id="qf-projeto" name="projeto">
+        </div>
+
+        <div class="qf-field">
+          <span class="qf-legend">Imóvel</span>
+          <div class="qf-pills" role="radiogroup" aria-label="Tipo de imóvel">
+            <button type="button" class="qf-pill" data-group="imovel">Residencial</button>
+            <button type="button" class="qf-pill" data-group="imovel">Comercial</button>
+          </div>
+          <input type="hidden" id="qf-imovel" name="imovel">
+        </div>
+
+        <div class="qf-row qf-row-2">
+          <div class="qf-field">
+            <label for="qf-area">Área aproximada</label>
+            <select id="qf-area" name="area">
+              <option value="">Selecione</option>
+              <option>Até 60 m²</option>
+              <option>60 a 150 m²</option>
+              <option>150 a 300 m²</option>
+              <option>Acima de 300 m²</option>
+              <option>Ainda não sei</option>
+            </select>
+          </div>
+          <div class="qf-field">
+            <label for="qf-prazo">Prazo para começar</label>
+            <select id="qf-prazo" name="prazo">
+              <option value="">Selecione</option>
+              <option>Imediato</option>
+              <option>Em até 30 dias</option>
+              <option>Em até 3 meses</option>
+              <option>Ainda estou planejando</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="qf-field">
+          <label for="qf-regiao">Bairro / Região no DF</label>
+          <input type="text" id="qf-regiao" name="regiao" autocomplete="address-level2" placeholder="Ex: Lago Sul, Águas Claras...">
+        </div>
+
+        <div class="qf-field">
+          <label for="qf-msg">Conte um pouco do que você precisa</label>
+          <textarea id="qf-msg" name="mensagem" rows="3" placeholder="Ex: reforma de cozinha e dois banheiros, apartamento de 90m²..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary qf-submit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar e continuar no WhatsApp
+        </button>
+        <p class="qf-note">Seus dados vão direto para o nosso time, sem intermediários. Nada de spam.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="cta-final" aria-labelledby="cta-h">
   <div class="container">
@@ -1022,6 +1168,66 @@ button{cursor:pointer;background:none;border:none;font-family:inherit}
       if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true')}
     });
   });
+
+  /* Quote form: pill groups */
+  document.querySelectorAll('.qf-pill').forEach(function(pill){
+    pill.addEventListener('click',function(){
+      var group=pill.dataset.group;
+      document.querySelectorAll('.qf-pill[data-group="'+group+'"]').forEach(function(p){p.classList.remove('active')});
+      pill.classList.add('active');
+      var hidden=document.getElementById('qf-'+group);
+      if(hidden) hidden.value=pill.textContent.trim();
+      var field=pill.closest('.qf-field');
+      if(field) field.classList.remove('qf-error');
+    });
+  });
+
+  /* Quote form: build WhatsApp message and submit */
+  var quoteForm=document.getElementById('quoteForm');
+  if(quoteForm){
+    quoteForm.addEventListener('submit',function(e){
+      e.preventDefault();
+      var nome=document.getElementById('qf-nome').value.trim();
+      var whatsapp=document.getElementById('qf-whatsapp').value.trim();
+      var projeto=document.getElementById('qf-projeto').value;
+
+      var requiredOk=true;
+      [['qf-nome',nome],['qf-whatsapp',whatsapp]].forEach(function(pair){
+        var field=document.getElementById(pair[0]).closest('.qf-field');
+        if(!pair[1]){field.classList.add('qf-error');requiredOk=false}else{field.classList.remove('qf-error')}
+      });
+      var projetoField=document.querySelector('[data-group="projeto"]').closest('.qf-field');
+      if(!projeto){projetoField.classList.add('qf-error');requiredOk=false}else{projetoField.classList.remove('qf-error')}
+      if(!requiredOk){
+        quoteForm.querySelector('.qf-error input,.qf-field.qf-error .qf-pills')?.closest('.qf-field')?.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+      }
+
+      var email=document.getElementById('qf-email').value.trim();
+      var imovel=document.getElementById('qf-imovel').value;
+      var area=document.getElementById('qf-area').value;
+      var prazo=document.getElementById('qf-prazo').value;
+      var regiao=document.getElementById('qf-regiao').value.trim();
+      var msg=document.getElementById('qf-msg').value.trim();
+
+      var lines=[
+        'Olá! Gostaria de um orçamento.',
+        '',
+        'Nome: '+nome,
+        'WhatsApp: '+whatsapp
+      ];
+      if(email) lines.push('E-mail: '+email);
+      lines.push('Tipo de projeto: '+projeto);
+      if(imovel) lines.push('Imóvel: '+imovel);
+      if(area) lines.push('Área aproximada: '+area);
+      if(prazo) lines.push('Prazo: '+prazo);
+      if(regiao) lines.push('Região: '+regiao);
+      if(msg) lines.push('Detalhes: '+msg);
+
+      var text=encodeURIComponent(lines.join('\n'));
+      window.open('https://wa.me/5561986250319?text='+text,'_blank','noopener');
+    });
+  }
 })();
 </script>
 </body>
